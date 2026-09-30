@@ -1,0 +1,22 @@
+# Compilados
+bin/
+out/
+target/
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

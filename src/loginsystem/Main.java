@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -24,65 +25,86 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        // ----- Ícones -----
+        // Ícones
         ImageView iconeUsuario = criarIcone(CAMINHO_IMAGENS + "pessoa.png");
         ImageView iconeSenha   = criarIcone(CAMINHO_IMAGENS + "cadeado.png");
 
-        // ----- Caixa de usuário -----
+        // Campos de usuário e senha
         TextField campoUsuario = new TextField();
         campoUsuario.setPromptText("Usuário");
-        campoUsuario.setPrefWidth(220);
+        campoUsuario.setPrefWidth(226);
 
-        // ----- Caixa de senha -----
         PasswordField campoSenha = new PasswordField();
         campoSenha.setPromptText("Senha");
-        campoSenha.setPrefWidth(220);
+        campoSenha.setPrefWidth(226);
 
-        // Linha: ícone pessoa + campo usuário
+        // Linhas com tamanho fixo e alinhadas à esquerda dentro de um bloco centralizado
         HBox linhaUsuario = new HBox(10, iconeUsuario, campoUsuario);
         linhaUsuario.setAlignment(Pos.CENTER_LEFT);
+        linhaUsuario.setMaxWidth(260);
 
-        // Linha: ícone cadeado + campo senha
         HBox linhaSenha = new HBox(10, iconeSenha, campoSenha);
         linhaSenha.setAlignment(Pos.CENTER_LEFT);
+        linhaSenha.setMaxWidth(260);
 
-        // ----- Mensagem de feedback (fica embaixo do botão) -----
-        Label mensagem = new Label("");
-        mensagem.setStyle("-fx-text-fill: #c0392b; -fx-font-size: 12px;");
-
-        // ----- Botão de login -----
+        // ----- Botão de login (menor)
         Button botaoLogin = new Button("Entrar");
-        botaoLogin.setPrefWidth(260);
+        botaoLogin.setPrefWidth(120);
         botaoLogin.setStyle(
             "-fx-background-color: #2d6a4f;" +
             "-fx-text-fill: white;" +
-            "-fx-font-size: 14px;" +
+            "-fx-font-size: 13px;" +
             "-fx-font-weight: bold;" +
             "-fx-background-radius: 6;" +
             "-fx-cursor: hand;"
         );
         botaoLogin.setOnAction(e -> {
-            String usuario = campoUsuario.getText();
+            String usuario = campoUsuario.getText().trim();
             String senha = campoSenha.getText();
 
             if (usuario.isEmpty() || senha.isEmpty()) {
-                mensagem.setText("Preencha usuário e senha.");
+                mostrarErro("Campos vazios", "Preencha usuário e senha.");
+            } else if (Autenticacao.autenticar(usuario, senha)) {
+                // Abre o painel principal e fecha a tela de login
+                PainelPrincipal painel = new PainelPrincipal(usuario);
+                painel.start(new Stage());
+                primaryStage.close();
             } else {
-                mensagem.setText("");
-                // TODO: chamar a lógica de autenticação aqui
+                mostrarErro("Falha no login", "Usuário ou senha incorretos.");
+                campoSenha.clear();
+                campoSenha.requestFocus();
             }
         });
 
-        // ----- Título -----
+        // Título
         Label titulo = new Label("Login System");
         titulo.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1b4332;");
 
-        VBox painel = new VBox(12, titulo, linhaUsuario, linhaSenha, botaoLogin, mensagem);
+        Label subtitulo = new Label("Horizon Earth");
+        subtitulo.setStyle("-fx-font-size: 13px; -fx-text-fill: #52796f;");
+
+        // Botão centralizado dentro de uma linha com a mesma largura do bloco
+        HBox linhaBotao = new HBox(botaoLogin);
+        linhaBotao.setAlignment(Pos.CENTER);
+        linhaBotao.setMaxWidth(260);
+
+        // Painel centralizado
+        VBox painel = new VBox(12, titulo, subtitulo, linhaUsuario, linhaSenha, linhaBotao);
         painel.setAlignment(Pos.CENTER);
         painel.setPadding(new Insets(40));
-        painel.setStyle("-fx-background-color: #f4f6f5;");
+        painel.setMaxWidth(340);
+        painel.setStyle(
+            "-fx-background-color: #ffffff;" +
+            "-fx-background-radius: 12;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 4);"
+        );
 
-        Scene cena = new Scene(painel, 420, 320);
+        // Container externo (fundo) para centralizar o painel na janela
+        VBox fundo = new VBox(painel);
+        fundo.setAlignment(Pos.CENTER);
+        fundo.setStyle("-fx-background-color: #f4f6f5;");
+
+        Scene cena = new Scene(fundo, 420, 320);
 
         try {
             FileInputStream fis = new FileInputStream(CAMINHO_IMAGENS + "cadeado.png");
@@ -95,10 +117,7 @@ public class Main extends Application {
         primaryStage.setTitle("Login System - Horizon Earth");
         primaryStage.setScene(cena);
         primaryStage.setResizable(false);
-
-        // Centraliza a janela na tela
         primaryStage.centerOnScreen();
-
         primaryStage.show();
     }
 
@@ -114,6 +133,15 @@ public class Main extends Application {
         } catch (Exception e) {
             return new ImageView(); // retorna vazio para não quebrar o layout
         }
+    }
+
+    // Caixa de diálogo de erro (substitui o Label de mensagem)
+    private void mostrarErro(String titulo, String mensagem) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(titulo);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
     }
 
     public static void main(String[] args) {

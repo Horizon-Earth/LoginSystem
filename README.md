@@ -4,7 +4,7 @@
 
 **Sistema de Login da startup Horizon Earth**
 
-![Versão](https://img.shields.io/badge/vers%C3%A3o-v0.2.0-blue)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-v1.0.0-blue)
 ![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk&logoColor=white)
 ![JavaFX](https://img.shields.io/badge/JavaFX-2C5AA0)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green)
@@ -22,7 +22,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 ## 🎯 Objetivos
 
-**Objetivo inicial:** implementar um login simples com usuário e senha fixos:
+**Objetivo inicial (concluído na v1.0.0 ✅):** implementar um login simples com usuário e senha fixos:
 
 | Campo | Valor |
 |---|---|
@@ -49,6 +49,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 | Versão | Descrição |
 |---|---|
+| **v1.0.0** | Primeira versão funcional. Autenticação com usuário e senha fixos (`root` / `toor`) na classe `Autenticacao`, mensagens de erro em caixas de diálogo (campos vazios e credenciais incorretas) e **Painel Principal** exibido após o login, com boas-vindas, data e hora da sessão e botão **Sair**, que retorna à tela de login. Tela de login redesenhada em formato de cartão, com subtítulo "Horizon Earth". Código separado em três classes. |
 | **v0.2.0** | Melhorias visuais na tela de login (tema verde, fundo claro, botão **Entrar** estilizado e janela centralizada) e validação de campos vazios, com mensagem de erro exibida abaixo do botão. A senha não é mais exibida no console. A autenticação com `root`/`toor` ainda não foi implementada. |
 | **v0.1.0** | Tela de login em JavaFX com título, campos de usuário e senha (com ícones) e botão **Entrar**. Os valores digitados eram apenas exibidos no console. |
 | **v0.0.0** | Painel simples em branco e estrutura básica do projeto, com `.gitkeep` nas pastas "vazias". |
@@ -62,7 +63,9 @@ LoginSystem/
 ├── .gitignore
 ├── src/
 │   └── loginsystem/
-│       └── Main.java     # Tela de login (JavaFX)
+│       ├── Main.java             # Tela de login (JavaFX)
+│       ├── Autenticacao.java     # Lógica de autenticação
+│       └── PainelPrincipal.java  # Painel exibido após o login
 ├── resources/
 │   ├── icons/            # Ícones da interface (pessoa.png, cadeado.png)
 │   └── images/           # Imagens da interface
@@ -103,13 +106,16 @@ git clone https://github.com/Horizon-Earth/LoginSystem.git
 
 # 3. Executar a classe principal
 #    src/loginsystem/Main.java > Run As > Java Application
+
+# 4. Entrar com as credenciais padrão
+#    Usuário: root | Senha: toor
 ```
 
 **Requisitos**
 - JDK instalado e configurado no Eclipse.
 - JavaFX SDK adicionado ao projeto (Build Path e argumentos de VM).
 
-> Execute a aplicação a partir da **raiz do projeto**. Os ícones são carregados pelo caminho relativo `resources/icons/`. Se os ícones não aparecerem, verifique se a aplicação está sendo executada a partir da raiz do projeto e se os arquivos `pessoa.png` e `cadeado.png` estão em `resources/icons/`.
+> Execute a aplicação a partir da **raiz do projeto**. Os ícones são carregados pelo caminho relativo `resources/icons/`. Se os ícones não aparecerem, a aplicação continua funcionando normalmente. Verifique se a aplicação está sendo executada a partir da raiz do projeto e se os arquivos `pessoa.png` e `cadeado.png` estão em `resources/icons/`.
 
 ## 🌿 Fluxo de trabalho
 

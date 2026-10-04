@@ -7,7 +7,6 @@ Módulo de autenticação desenvolvido em JavaFX. Após um login válido, abre u
 - Entrada de usuário e senha.
 - Validação de campos vazios e credenciais incorretas.
 - Autenticação de demonstração com `root` / `toor`.
-- Retorno à tela de login pelo botão Sair.
 
 As credenciais são fixas no código. Cadastro, banco de dados e abertura dos módulos da agenda e do planeta são etapas futuras.
 
@@ -48,14 +47,8 @@ Projeto acadêmico de Programação Orientada a Objetos — IFCE, Campus Marangu
 | Integrante | Área | GitHub |
 | --- | --- | --- |
 | CaioStack | Full Stack | [CaioStack](https://github.com/CaioStack) |
-| MuriStack | Banco de dados | [MuriStack](https://github.com/MuriStack) |
 | BryanStack | Backend | [Bryan9895](https://github.com/Bryan9895) |
-| MarioStack | Frontend | [ycarus-236](https://github.com/ycarus-236) |
-| MiguelStack | Full Stack e design | [MiguelStack](https://github.com/MiguelStack) |
-
-## Contribuição
-
-Crie uma branch para a alteração, faça commits claros e abra um pull request. Confira a execução e os testes disponíveis antes de integrar à `main`.
+| MiguelStack | Design | [MiguelStack](https://github.com/MiguelStack) |
 
 ## Licença
 

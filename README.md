@@ -51,7 +51,7 @@ Projeto acadêmico de Programação Orientada a Objetos — IFCE, Campus Marangu
 | MuriStack | Banco de dados | [MuriStack](https://github.com/MuriStack) |
 | BryanStack | Backend | [Bryan9895](https://github.com/Bryan9895) |
 | MarioStack | Frontend | [ycarus-236](https://github.com/ycarus-236) |
-| MiguelStack | Frontend e design | [MiguelStack](https://github.com/MiguelStack) |
+| MiguelStack | Full Stack e design | [MiguelStack](https://github.com/MiguelStack) |
 
 ## Contribuição
 

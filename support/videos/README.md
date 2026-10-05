@@ -15,3 +15,19 @@ Playlists do YouTube usadas pela equipe como material de estudo durante o desenv
 - **MySQL com Java:** base para a próxima etapa, a autenticação com banco de dados.
 
 > Os vídeos não são armazenados no repositório. Apenas os links ficam registrados aqui.
+
+<!-- estrutura-guia:inicio -->
+## Finalidade e estado da pasta
+
+Links de vídeos e videoaulas usados como apoio. Registre título e URL no README, evitando arquivos de vídeo grandes.
+
+### Estado atual
+
+Esta pasta ainda não contém os materiais previstos, além deste README. Ainda não foram adicionados materiais de consulta ou referências a esta pasta.
+
+### Conteúdo
+
+Nenhum arquivo de conteúdo foi adicionado até o momento.
+
+[Voltar ao README do projeto](../../README.md).
+<!-- estrutura-guia:fim -->

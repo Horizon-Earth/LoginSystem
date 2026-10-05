@@ -1,4 +1,14 @@
-# 🎥 Vídeos de apoio
+# 📁 videos
+
+Links de vídeos e videoaulas usados como apoio. Registre título e URL no README, evitando arquivos de vídeo grandes.
+
+## 📌 Aguardando conteúdo
+
+Ainda não foram registrados links de vídeos e videoaulas.
+
+Ao adicionar uma referência, registre o título, o link e o assunto. Evite armazenar vídeos grandes no repositório.
+
+## Material já registrado
 
 Playlists do YouTube usadas pela equipe como material de estudo durante o desenvolvimento do **LoginSystem**.
 
@@ -16,18 +26,6 @@ Playlists do YouTube usadas pela equipe como material de estudo durante o desenv
 
 > Os vídeos não são armazenados no repositório. Apenas os links ficam registrados aqui.
 
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+---
 
-Links de vídeos e videoaulas usados como apoio. Registre título e URL no README, evitando arquivos de vídeo grandes.
-
-### Estado atual
-
-Esta pasta ainda não contém os materiais previstos, além deste README. Ainda não foram adicionados materiais de consulta ou referências a esta pasta.
-
-### Conteúdo
-
-Nenhum arquivo de conteúdo foi adicionado até o momento.
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

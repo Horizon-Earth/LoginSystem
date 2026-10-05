@@ -1,20 +1,14 @@
-# resources/icons
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 icons
 
 Ícones utilizados nas interfaces e nas janelas da aplicação.
 
-### Estado atual
+## Arquivos desta pasta
 
-Esta pasta contém arquivos do projeto ou materiais nas subpastas abaixo.
+| Arquivo | Finalidade |
+| :--- | :--- |
+| [cadeado.png](cadeado.png) | Imagem ou proposta visual: cadeado.png. |
+| [pessoa.png](pessoa.png) | Imagem ou proposta visual: pessoa.png. |
 
-### Conteúdo
+---
 
-| Item | Descrição |
-| --- | --- |
-| [cadeado.png](cadeado.png) | Arquivo existente relacionado à finalidade desta pasta. |
-| [pessoa.png](pessoa.png) | Arquivo existente relacionado à finalidade desta pasta. |
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

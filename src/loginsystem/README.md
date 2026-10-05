@@ -1,21 +1,15 @@
-# src/loginsystem
+# 📁 loginsystem
 
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+Tela de login, autenticação e painel da sessão em JavaFX.
 
-Organiza as classes Java e os subpacotes deste caminho, preservando a estrutura dos pacotes declarados no código.
+## Arquivos desta pasta
 
-### Estado atual
+| Arquivo | Finalidade |
+| :--- | :--- |
+| [Autenticacao.java](Autenticacao.java) | Validação das credenciais de login. |
+| [Main.java](Main.java) | Inicialização e interface principal da aplicação. |
+| [PainelPrincipal.java](PainelPrincipal.java) | Painel exibido após a autenticação. |
 
-Esta pasta contém arquivos do projeto ou materiais nas subpastas abaixo.
+---
 
-### Conteúdo
-
-| Item | Descrição |
-| --- | --- |
-| [Autenticacao.java](Autenticacao.java) | Classe Java do pacote. |
-| [Main.java](Main.java) | Classe Java do pacote. |
-| [PainelPrincipal.java](PainelPrincipal.java) | Classe Java do pacote. |
-
-[Voltar ao README do projeto](../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../README.md) · [Pasta anterior](../README.md)

@@ -1,19 +1,13 @@
-# docs/ui-ux/prototypes
-
-<!-- estrutura-guia:inicio -->
-## Finalidade e estado da pasta
+# 📁 prototypes
 
 Protótipos e registros da navegação e interação entre telas.
 
-### Estado atual
+## 📌 Aguardando conteúdo
 
-Esta pasta ainda não contém os materiais previstos, além deste README e do marcador `.gitkeep`. Os materiais previstos para esta etapa ainda não foram adicionados ao repositório nesta pasta.
+Ainda não foram adicionados protótipos de navegação entre telas.
 
-### Conteúdo
+O `.gitkeep` foi usado para manter a pasta versionada enquanto estava vazia. Ele é apenas um marcador; não contém dados do projeto.
 
-| Item | Descrição |
-| --- | --- |
-| [.gitkeep](.gitkeep) | Marcador usado para versionar a pasta quando estava vazia; com o README, já não é necessário para isso. |
+---
 
-[Voltar ao README do projeto](../../../README.md).
-<!-- estrutura-guia:fim -->
+[← Visão geral do projeto](../../../README.md) · [Pasta anterior](../README.md)

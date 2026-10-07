@@ -1,0 +1,121 @@
+/* ============================================================
+   Horizon Earth Desktop Client - Folha de estilos
+   Tema: dark navy com acentos ciano
+   ============================================================ */
+
+/* ----- Fundo da janela (tela cheia escura) ----- */
+.fundo-login {
+    -fx-background-color: #060b16;
+}
+
+/* ----- Card central de login ----- */
+.card-login {
+    -fx-background-color: #0c1424;
+    -fx-background-radius: 16;
+    -fx-border-color: #1c2942;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 25, 0, 0, 8);
+}
+
+/* ----- Círculo do logo ----- */
+.circulo-logo {
+    -fx-background-color: #10233d;
+    -fx-background-radius: 32;
+    -fx-border-color: #1e3a5f;
+    -fx-border-radius: 32;
+    -fx-border-width: 1;
+}
+
+/* ----- Título ----- */
+.titulo-login {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e6edf3;
+}
+
+/* ----- Labels USUÁRIO / SENHA ----- */
+.label-campo {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #22d3ee;
+}
+
+/* ----- Caixa externa dos campos ----- */
+.caixa-campo {
+    -fx-background-color: #0a1120;
+    -fx-background-radius: 8;
+    -fx-border-color: #22314e;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-pref-height: 46;
+}
+
+/* ----- Campo de texto interno ----- */
+.campo-texto {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e6edf3;
+    -fx-prompt-text-fill: #5a6b85;
+    -fx-font-size: 13px;
+}
+
+/* ----- Checkbox "Lembrar de mim" ----- */
+.checkbox-login {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8b949e;
+}
+
+/* ----- Links (Esqueceu a senha / Criar conta) ----- */
+.link-login {
+    -fx-font-size: 12px;
+    -fx-text-fill: #22d3ee;
+    -fx-border-color: transparent;
+}
+
+.link-login:hover {
+    -fx-text-fill: #67e8f9;
+}
+
+/* ----- Botão Entrar no Sistema ----- */
+.botao-entrar {
+    -fx-background-color: #06b6d4;
+    -fx-text-fill: #06202a;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.botao-entrar:hover {
+    -fx-background-color: #22d3ee;
+}
+
+/* ----- Botão do olho (mostrar senha) ----- */
+.botao-olho {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 4;
+}
+
+/* ----- Texto do rodapé do card ----- */
+.texto-rodape {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8b949e;
+}
+
+/* ----- Barra de status inferior ----- */
+.barra-status {
+    -fx-background-color: #05080f;
+    -fx-border-color: #141d30;
+    -fx-border-width: 1 0 0 0;
+}
+
+.texto-status {
+    -fx-font-size: 11px;
+    -fx-text-fill: #5a6b85;
+}
+
+.ponto-status {
+    -fx-font-size: 10px;
+    -fx-text-fill: #22c55e;
+}

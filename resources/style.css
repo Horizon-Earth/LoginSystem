@@ -1,5 +1,5 @@
 /* ============================================================
-   Horizon Earth Desktop Client - Folha de estilos
+   Horizon Earth Desktop Client - Folha de estilos (v1.1.1)
    Tema: dark navy com acentos ciano
    ============================================================ */
 
@@ -21,22 +21,22 @@
 /* ----- Círculo do logo ----- */
 .circulo-logo {
     -fx-background-color: #10233d;
-    -fx-background-radius: 32;
+    -fx-background-radius: 28;
     -fx-border-color: #1e3a5f;
-    -fx-border-radius: 32;
+    -fx-border-radius: 28;
     -fx-border-width: 1;
 }
 
 /* ----- Título ----- */
 .titulo-login {
-    -fx-font-size: 26px;
+    -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: #e6edf3;
 }
 
 /* ----- Labels USUÁRIO / SENHA ----- */
 .label-campo {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-text-fill: #22d3ee;
 }
@@ -48,7 +48,7 @@
     -fx-border-color: #22314e;
     -fx-border-radius: 8;
     -fx-border-width: 1;
-    -fx-pref-height: 46;
+    -fx-pref-height: 40;
 }
 
 /* ----- Campo de texto interno ----- */
@@ -56,18 +56,18 @@
     -fx-background-color: transparent;
     -fx-text-fill: #e6edf3;
     -fx-prompt-text-fill: #5a6b85;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
 }
 
 /* ----- Checkbox "Lembrar de mim" ----- */
 .checkbox-login {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: #8b949e;
 }
 
 /* ----- Links (Esqueceu a senha / Criar conta) ----- */
 .link-login {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: #22d3ee;
     -fx-border-color: transparent;
 }
@@ -80,7 +80,7 @@
 .botao-entrar {
     -fx-background-color: #06b6d4;
     -fx-text-fill: #06202a;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
     -fx-cursor: hand;
@@ -94,12 +94,12 @@
 .botao-olho {
     -fx-background-color: transparent;
     -fx-cursor: hand;
-    -fx-padding: 4;
+    -fx-padding: 2 6 2 2;
 }
 
 /* ----- Texto do rodapé do card ----- */
 .texto-rodape {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: #8b949e;
 }
 
@@ -111,11 +111,11 @@
 }
 
 .texto-status {
-    -fx-font-size: 11px;
+    -fx-font-size: 10px;
     -fx-text-fill: #5a6b85;
 }
 
 .ponto-status {
-    -fx-font-size: 10px;
+    -fx-font-size: 9px;
     -fx-text-fill: #22c55e;
 }

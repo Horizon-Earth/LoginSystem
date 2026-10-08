@@ -1,5 +1,6 @@
 package loginsystem;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,9 +16,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 
@@ -30,10 +33,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         // ==================== LOGO (círculo com globo) ====================
-        ImageView iconeGlobo = criarIcone(CAMINHO_IMAGENS + "globo.png", 28, 28);
+        ImageView iconeGlobo = criarIcone(CAMINHO_IMAGENS + "globo.png", 26, 26);
         StackPane circuloLogo = new StackPane(iconeGlobo);
-        circuloLogo.setMinSize(64, 64);
-        circuloLogo.setMaxSize(64, 64);
+        circuloLogo.setMinSize(56, 56);
+        circuloLogo.setMaxSize(56, 56);
         circuloLogo.getStyleClass().add("circulo-logo");
 
         Label titulo = new Label("Horizon Earth");
@@ -43,22 +46,25 @@ public class Main extends Application {
         Label labelUsuario = new Label("USUÁRIO");
         labelUsuario.getStyleClass().add("label-campo");
 
-        ImageView iconeUsuario = criarIcone(CAMINHO_IMAGENS + "pessoa.png", 18, 18);
+        ImageView iconeUsuario = criarIcone(CAMINHO_IMAGENS + "pessoa.png", 16, 16);
         TextField campoUsuario = new TextField();
-        campoUsuario.setPromptText("Nome de usuário");
+        campoUsuario.setPromptText("Nome de usuário ou e-mail");
         campoUsuario.getStyleClass().add("campo-texto");
 
         HBox caixaUsuario = new HBox(10, iconeUsuario, campoUsuario);
         caixaUsuario.setAlignment(Pos.CENTER_LEFT);
-        caixaUsuario.setPadding(new Insets(0, 14, 0, 14));
+        caixaUsuario.setPadding(new Insets(0, 12, 0, 12));
+        // O campo cresce para preencher a caixa (não corta o texto)
+        HBox.setHgrow(campoUsuario, Priority.ALWAYS);
         caixaUsuario.getStyleClass().add("caixa-campo");
 
-        // ==================== CAMPO SENHA ====================
+        // ==================== CAMPO SENHA (com olho no final) ====================
         Label labelSenha = new Label("SENHA");
         labelSenha.getStyleClass().add("label-campo");
 
-        ImageView iconeSenha = criarIcone(CAMINHO_IMAGENS + "cadeado.png", 18, 18);
-        ImageView iconeOlho  = criarIcone(CAMINHO_IMAGENS + "olho.png", 18, 18);
+        ImageView iconeSenha = criarIcone(CAMINHO_IMAGENS + "cadeado.png", 16, 16);
+        ImageView iconeOlhoAberto   = criarIcone(CAMINHO_IMAGENS + "olho.png", 16, 16);
+        ImageView iconeOlhoFechado  = criarIcone(CAMINHO_IMAGENS + "olho-fechado.png", 16, 16);
 
         PasswordField campoSenha = new PasswordField();
         campoSenha.setPromptText("Digite sua senha");
@@ -72,8 +78,9 @@ public class Main extends Application {
 
         campoSenha.textProperty().bindBidirectional(campoSenhaVisivel.textProperty());
 
+        // Olho posicionado no FINAL do campo de senha, com animação ao clicar
         Button botaoOlho = new Button();
-        botaoOlho.setGraphic(iconeOlho);
+        botaoOlho.setGraphic(iconeOlhoAberto);
         botaoOlho.getStyleClass().add("botao-olho");
         botaoOlho.setOnAction(e -> {
             boolean mostrando = campoSenhaVisivel.isVisible();
@@ -81,15 +88,31 @@ public class Main extends Application {
             campoSenha.setManaged(mostrando);
             campoSenhaVisivel.setVisible(!mostrando);
             campoSenhaVisivel.setManaged(!mostrando);
+
+            // Troca o ícone com um "fade" rápido (animação de transição)
+            ImageView proximoIcone = mostrando ? iconeOlhoAberto : iconeOlhoFechado;
+            FadeTransition fade = new FadeTransition(Duration.millis(150), botaoOlho);
+            fade.setFromValue(1.0);
+            fade.setToValue(0.2);
+            fade.setOnFinished(ev -> {
+                botaoOlho.setGraphic(proximoIcone);
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(150), botaoOlho);
+                fadeIn.setFromValue(0.2);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+            fade.play();
         });
 
         StackPane areaSenha = new StackPane(campoSenha, campoSenhaVisivel);
         StackPane.setAlignment(botaoOlho, Pos.CENTER_RIGHT);
+        StackPane.setMargin(botaoOlho, new Insets(0, 6, 0, 0));
         areaSenha.getChildren().add(botaoOlho);
 
         HBox caixaSenha = new HBox(10, iconeSenha, areaSenha);
         caixaSenha.setAlignment(Pos.CENTER_LEFT);
-        caixaSenha.setPadding(new Insets(0, 6, 0, 14));
+        caixaSenha.setPadding(new Insets(0, 2, 0, 12));
+        HBox.setHgrow(areaSenha, Priority.ALWAYS);
         caixaSenha.getStyleClass().add("caixa-campo");
 
         // ==================== LEMBRAR DE MIM / ESQUECI ====================
@@ -104,13 +127,13 @@ public class Main extends Application {
 
         HBox linhaOpcoes = new HBox(lembrar, esqueci);
         linhaOpcoes.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(esqueci, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(esqueci, Priority.ALWAYS);
         esqueci.setAlignment(Pos.CENTER_RIGHT);
 
         // ==================== BOTÃO ENTRAR ====================
         Button botaoEntrar = new Button("Entrar no Sistema");
         botaoEntrar.setMaxWidth(Double.MAX_VALUE);
-        botaoEntrar.setPrefHeight(44);
+        botaoEntrar.setPrefHeight(40);
         botaoEntrar.getStyleClass().add("botao-entrar");
         botaoEntrar.setOnAction(e -> {
             String usuario = campoUsuario.getText().trim();
@@ -141,7 +164,7 @@ public class Main extends Application {
         linhaRodape.setAlignment(Pos.CENTER);
 
         // ==================== CARD CENTRAL ====================
-        VBox card = new VBox(14,
+        VBox card = new VBox(12,
             circuloLogo, titulo,
             new VBox(5, labelUsuario, caixaUsuario),
             new VBox(5, labelSenha, caixaSenha),
@@ -150,8 +173,8 @@ public class Main extends Application {
             linhaRodape
         );
         card.setAlignment(Pos.TOP_CENTER);
-        card.setPadding(new Insets(40, 44, 36, 44));
-        card.setMaxWidth(420);
+        card.setPadding(new Insets(32, 36, 28, 36));
+        card.setMaxWidth(360);
         card.getStyleClass().add("card-login");
 
         // ==================== BARRA DE STATUS (rodapé da janela) ====================
@@ -165,12 +188,12 @@ public class Main extends Application {
         statusEsquerda.setAlignment(Pos.CENTER_LEFT);
 
         String versaoJava = System.getProperty("java.version");
-        Label infoDireita = new Label("Java Runtime Environment: " + versaoJava + "    Versão v1.1.0");
+        Label infoDireita = new Label("Java Runtime Environment: " + versaoJava + "    Versão v1.1.1");
         infoDireita.getStyleClass().add("texto-status");
 
         HBox statusDireita = new HBox(infoDireita);
         statusDireita.setAlignment(Pos.CENTER_RIGHT);
-        HBox.setHgrow(statusDireita, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(statusDireita, Priority.ALWAYS);
 
         HBox barraStatus = new HBox(20, statusEsquerda, statusDireita);
         barraStatus.setAlignment(Pos.CENTER_LEFT);
@@ -183,9 +206,9 @@ public class Main extends Application {
         raiz.setBottom(barraStatus);
         raiz.getStyleClass().add("fundo-login");
         BorderPane.setAlignment(card, Pos.CENTER);
-        BorderPane.setMargin(card, new Insets(20));
+        BorderPane.setMargin(card, new Insets(16));
 
-        Scene cena = new Scene(raiz, 1320, 820);
+        Scene cena = new Scene(raiz, 460, 640);
 
         // Aplica a folha de estilos externa
         cena.getStylesheets().add("file:" + CAMINHO_CSS);
@@ -200,8 +223,8 @@ public class Main extends Application {
 
         primaryStage.setTitle("Horizon Earth Desktop Client");
         primaryStage.setScene(cena);
-        primaryStage.setMinWidth(900);
-        primaryStage.setMinHeight(650);
+        primaryStage.setMinWidth(420);
+        primaryStage.setMinHeight(580);
         primaryStage.centerOnScreen();
         primaryStage.show();
     }

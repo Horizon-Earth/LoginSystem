@@ -1,121 +1,88 @@
 /* ============================================================
-   Horizon Earth Desktop Client - Folha de estilos (v1.1.1)
-   Tema: dark navy com acentos ciano
+   Horizon Earth - Folha de estilos (v1.2.1)
+   Tema: split screen - mapa escuro + formulário claro
    ============================================================ */
 
-/* ----- Fundo da janela (tela cheia escura) ----- */
-.fundo-login {
-    -fx-background-color: #060b16;
+/* ----- Fundo geral da janela ----- */
+.fundo-janela {
+    -fx-background-color: #f7f8fa;
 }
 
-/* ----- Card central de login ----- */
-.card-login {
-    -fx-background-color: #0c1424;
-    -fx-background-radius: 16;
-    -fx-border-color: #1c2942;
-    -fx-border-radius: 16;
-    -fx-border-width: 1;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 25, 0, 0, 8);
+/* ==================== LADO ESQUERDO (mapa) ==================== */
+
+.painel-esquerdo {
+    -fx-background-color: #101a33;
 }
 
-/* ----- Círculo do logo ----- */
-.circulo-logo {
-    -fx-background-color: #10233d;
-    -fx-background-radius: 28;
-    -fx-border-color: #1e3a5f;
-    -fx-border-radius: 28;
-    -fx-border-width: 1;
-}
-
-/* ----- Título ----- */
-.titulo-login {
-    -fx-font-size: 22px;
+.nome-marca {
+    -fx-font-size: 44px;
     -fx-font-weight: bold;
-    -fx-text-fill: #e6edf3;
+    -fx-text-fill: #ffffff;
 }
 
-/* ----- Labels USUÁRIO / SENHA ----- */
-.label-campo {
-    -fx-font-size: 11px;
+.slogan {
+    -fx-font-size: 16px;
+    -fx-text-fill: #b8c4de;
+}
+
+/* ==================== LADO DIREITO (formulário) ==================== */
+
+.painel-direito {
+    -fx-background-color: #f7f8fa;
+}
+
+.titulo-form {
+    -fx-font-size: 40px;
     -fx-font-weight: bold;
-    -fx-text-fill: #22d3ee;
+    -fx-text-fill: #1a2340;
 }
 
-/* ----- Caixa externa dos campos ----- */
-.caixa-campo {
-    -fx-background-color: #0a1120;
-    -fx-background-radius: 8;
-    -fx-border-color: #22314e;
-    -fx-border-radius: 8;
+.subtitulo-form {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6b7694;
+}
+
+/* ----- Labels Usuário / Senha ----- */
+.label-campo-claro {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a2340;
+}
+
+/* ----- Campos claros ----- */
+.campo-claro {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #d8dde8;
+    -fx-border-radius: 12;
     -fx-border-width: 1;
-    -fx-pref-height: 40;
+    -fx-text-fill: #1a2340;
+    -fx-prompt-text-fill: #9aa3b8;
+    -fx-font-size: 15px;
+    -fx-pref-height: 54;
+    -fx-padding: 0 18 0 18;
 }
 
-/* ----- Campo de texto interno ----- */
-.campo-texto {
-    -fx-background-color: transparent;
-    -fx-text-fill: #e6edf3;
-    -fx-prompt-text-fill: #5a6b85;
-    -fx-font-size: 12px;
+.campo-claro:focused {
+    -fx-border-color: #1a2340;
 }
 
-/* ----- Checkbox "Lembrar de mim" ----- */
-.checkbox-login {
-    -fx-font-size: 11px;
-    -fx-text-fill: #8b949e;
+/* ----- Botão Entrar escuro ----- */
+.botao-entrar-escuro {
+    -fx-background-color: #101a33;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
 }
 
-/* ----- Links (Esqueceu a senha / Criar conta) ----- */
-.link-login {
-    -fx-font-size: 11px;
-    -fx-text-fill: #22d3ee;
-    -fx-border-color: transparent;
+.botao-entrar-escuro:hover {
+    -fx-background-color: #1c2a4d;
 }
 
-.link-login:hover {
-    -fx-text-fill: #67e8f9;
-}
-
-/* ----- Botão Entrar no Sistema ----- */
-.botao-entrar {
-    -fx-background-color: #06b6d4;
-    -fx-text-fill: #06202a;
+/* ----- Rodapé ----- */
+.rodape-form {
     -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-cursor: hand;
-}
-
-.botao-entrar:hover {
-    -fx-background-color: #22d3ee;
-}
-
-/* ----- Botão do olho (mostrar senha) ----- */
-.botao-olho {
-    -fx-background-color: transparent;
-    -fx-cursor: hand;
-    -fx-padding: 2 6 2 2;
-}
-
-/* ----- Texto do rodapé do card ----- */
-.texto-rodape {
-    -fx-font-size: 11px;
-    -fx-text-fill: #8b949e;
-}
-
-/* ----- Barra de status inferior ----- */
-.barra-status {
-    -fx-background-color: #05080f;
-    -fx-border-color: #141d30;
-    -fx-border-width: 1 0 0 0;
-}
-
-.texto-status {
-    -fx-font-size: 10px;
-    -fx-text-fill: #5a6b85;
-}
-
-.ponto-status {
-    -fx-font-size: 9px;
-    -fx-text-fill: #22c55e;
+    -fx-text-fill: #9aa3b8;
 }

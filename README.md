@@ -4,7 +4,7 @@
 
 **Sistema de Login da startup Horizon Earth**
 
-![Versão](https://img.shields.io/badge/vers%C3%A3o-v1.2.1-blue)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-v1.3.0-blue)
 ![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk&logoColor=white)
 ![JavaFX](https://img.shields.io/badge/JavaFX-2C5AA0)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green)
@@ -49,6 +49,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 | Versão | Descrição |
 |---|---|
+| **v1.3.0** | Nova tela de login em formato de **card central flutuante** sobre fundo acinzentado, com tema escuro em tons de roxo. À esquerda do card, a imagem da marca (`resources/images/logo.png`) com o nome **Horizon Earth**, o slogan e indicadores decorativos de carrossel; à direita, o formulário de acesso com botão **Entrar no Sistema** e botão de mostrar/ocultar senha com animação. Inclui o link "Cadastre-se" e os botões "Google" e "Apple", que ainda não estão implementados e exibem a mensagem de recurso indisponível. Janela com tamanho mínimo definido. |
 | **v1.2.1** | Nova tela de login em **layout dividido**: à esquerda, o mapa do planeta (`resources/images/mapa.png`) com o nome **Horizon Earth** e o slogan "Monitoramento de clima e riscos do planeta."; à direita, o formulário de acesso (usuário, senha e botão **Entrar**) com rodapé do projeto. Interface simplificada: foram removidos o botão de mostrar/ocultar senha, a opção "Lembrar de mim", os links de apoio e a barra de status. Janela maior (1200x750), com tamanho mínimo definido. |
 | **v1.1.1** | Ajustes visuais e de usabilidade na tela de login: novo tema escuro (azul-marinho com detalhes em ciano) definido em `resources/style.css`, janela mais compacta, campos que preenchem toda a caixa (sem cortar o texto digitado) e botão de mostrar/ocultar senha posicionado no final do campo, com ícone de olho aberto/fechado e animação de transição. |
 | **v1.1.0** | Redesign completo da tela de login com a identidade visual do **Horizon Earth**: logo com globo, campos com rótulos e ícones, botão para mostrar/ocultar a senha, opção "Lembrar de mim" (apenas visual por enquanto), links "Esqueceu a senha?" e "Criar conta" (exibem orientações em caixas de diálogo) e barra de status com a versão do Java e do sistema. Estilos movidos para uma folha de estilos externa (`resources/style.css`). A janela agora é redimensionável, com tamanho mínimo definido. |
@@ -70,8 +71,8 @@ LoginSystem/
 │       ├── Autenticacao.java     # Lógica de autenticação
 │       └── PainelPrincipal.java  # Painel exibido após o login
 ├── resources/
-│   ├── icons/            # Ícones da interface (globo.png: ícone da janela)
-│   ├── images/           # Imagens da interface (mapa.png)
+│   ├── icons/            # Ícones da interface (globo, olho, olho-fechado)
+│   ├── images/           # Imagens da interface (logo.png)
 │   └── style.css         # Folha de estilos da interface
 ├── docs/
 │   ├── uml/              # Diagramas UML
@@ -119,7 +120,7 @@ git clone https://github.com/Horizon-Earth/LoginSystem.git
 - JDK instalado e configurado no Eclipse.
 - JavaFX SDK adicionado ao projeto (Build Path e argumentos de VM).
 
-> Execute a aplicação a partir da **raiz do projeto**. Os ícones, as imagens e a folha de estilos são carregados por caminhos relativos (`resources/icons/`, `resources/images/` e `resources/style.css`). Se o ícone da janela ou o mapa não aparecerem, a aplicação continua funcionando normalmente. Verifique se a aplicação está sendo executada a partir da raiz do projeto e se os arquivos `resources/icons/globo.png` e `resources/images/mapa.png` existem. Se a tela aparecer sem estilo, confira se o arquivo `resources/style.css` existe.
+> Execute a aplicação a partir da **raiz do projeto**. Os ícones, as imagens e a folha de estilos são carregados por caminhos relativos (`resources/icons/`, `resources/images/` e `resources/style.css`). Se os ícones ou a imagem lateral não aparecerem, a aplicação continua funcionando normalmente. Verifique se a aplicação está sendo executada a partir da raiz do projeto e se os arquivos `resources/icons/globo.png`, `resources/icons/olho.png`, `resources/icons/olho-fechado.png` e `resources/images/logo.png` existem. Se a tela aparecer sem estilo, confira se o arquivo `resources/style.css` existe.
 
 ## 🌿 Fluxo de trabalho
 

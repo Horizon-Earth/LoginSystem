@@ -1,88 +1,166 @@
 /* ============================================================
-   Horizon Earth - Folha de estilos (v1.2.1)
-   Tema: split screen - mapa escuro + formulário claro
+   Horizon Earth - Folha de estilos (v1.3.0)
+   Tema: card central flutuante sobre fundo acinzentado
    ============================================================ */
 
-/* ----- Fundo geral da janela ----- */
+/* ----- Fundo da janela (fora do card) ----- */
 .fundo-janela {
-    -fx-background-color: #f7f8fa;
+    -fx-background-color: #7e7e92;
 }
 
-/* ==================== LADO ESQUERDO (mapa) ==================== */
+/* ----- Card central ----- */
+.card-central {
+    -fx-background-color: #262636;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 30, 0, 0, 10);
+}
 
-.painel-esquerdo {
+/* ==================== LADO ESQUERDO (imagem) ==================== */
+
+.painel-imagem {
     -fx-background-color: #101a33;
+    -fx-background-radius: 20 0 0 20;
+    -fx-min-width: 400;
+    -fx-min-height: 560;
 }
 
-.nome-marca {
-    -fx-font-size: 44px;
+.logo-card {
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
 }
 
-.slogan {
-    -fx-font-size: 16px;
+.botao-pilula {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.botao-pilula:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.28);
+}
+
+.nome-marca-card {
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.slogan-card {
+    -fx-font-size: 13px;
     -fx-text-fill: #b8c4de;
 }
 
 /* ==================== LADO DIREITO (formulário) ==================== */
 
-.painel-direito {
-    -fx-background-color: #f7f8fa;
+.painel-formulario {
+    -fx-background-color: #262636;
+    -fx-background-radius: 0 20 20 0;
 }
 
-.titulo-form {
-    -fx-font-size: 40px;
+.titulo-card {
+    -fx-font-size: 36px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1a2340;
+    -fx-text-fill: #ffffff;
 }
 
-.subtitulo-form {
-    -fx-font-size: 16px;
-    -fx-text-fill: #6b7694;
+.texto-card {
+    -fx-font-size: 13px;
+    -fx-text-fill: #9aa3b8;
 }
 
-/* ----- Labels Usuário / Senha ----- */
-.label-campo-claro {
+.link-card {
+    -fx-font-size: 13px;
+    -fx-text-fill: #9d8df1;
+    -fx-border-color: transparent;
+}
+
+.link-card:hover {
+    -fx-text-fill: #b9aef7;
+}
+
+.label-card {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c9d1e0;
+}
+
+.campo-card {
+    -fx-background-color: #323244;
+    -fx-background-radius: 8;
+    -fx-border-color: #44445c;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #7c86a0;
+    -fx-font-size: 13px;
+    -fx-pref-height: 46;
+    -fx-padding: 0 44 0 14;
+}
+
+.campo-card:focused {
+    -fx-border-color: #9d8df1;
+}
+
+.caixa-senha-card {
+    -fx-background-color: #323244;
+    -fx-background-radius: 8;
+    -fx-border-color: #44445c;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+.caixa-senha-card:focused {
+    -fx-border-color: #9d8df1;
+}
+
+.botao-principal {
+    -fx-background-color: #7c6cf0;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1a2340;
-}
-
-/* ----- Campos claros ----- */
-.campo-claro {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 12;
-    -fx-border-color: #d8dde8;
-    -fx-border-radius: 12;
-    -fx-border-width: 1;
-    -fx-text-fill: #1a2340;
-    -fx-prompt-text-fill: #9aa3b8;
-    -fx-font-size: 15px;
-    -fx-pref-height: 54;
-    -fx-padding: 0 18 0 18;
-}
-
-.campo-claro:focused {
-    -fx-border-color: #1a2340;
-}
-
-/* ----- Botão Entrar escuro ----- */
-.botao-entrar-escuro {
-    -fx-background-color: #101a33;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 12;
+    -fx-background-radius: 8;
     -fx-cursor: hand;
 }
 
-.botao-entrar-escuro:hover {
-    -fx-background-color: #1c2a4d;
+.botao-principal:hover {
+    -fx-background-color: #9484f5;
 }
 
-/* ----- Rodapé ----- */
-.rodape-form {
+.botao-olho {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 2 6 2 2;
+}
+
+/* ----- Divisor "ou entre com" ----- */
+.linha-divisora {
+    -fx-background-color: #44445c;
+    -fx-min-height: 1;
+    -fx-max-height: 1;
+}
+
+.texto-divisor {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7c86a0;
+}
+
+/* ----- Botões sociais ----- */
+.botao-social {
+    -fx-background-color: transparent;
+    -fx-border-color: #55556e;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #c9d1e0;
     -fx-font-size: 13px;
-    -fx-text-fill: #9aa3b8;
+    -fx-font-weight: bold;
+    -fx-pref-height: 44;
+    -fx-cursor: hand;
+}
+
+.botao-social:hover {
+    -fx-background-color: #323244;
 }

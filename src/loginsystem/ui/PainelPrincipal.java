@@ -1,4 +1,4 @@
-package loginsystem;
+package loginsystem.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,34 +7,31 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import loginsystem.model.Sessao;
 
 /**
  * Painel exibido após o login bem-sucedido.
+ * Recebe a Sessao criada no momento da autenticação.
  */
 public class PainelPrincipal {
 
-    private final String usuarioLogado;
+    private final Sessao sessao;
 
-    public PainelPrincipal(String usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
+    public PainelPrincipal(Sessao sessao) {
+        this.sessao = sessao;
     }
 
-    public void start(Stage stage) {
+    public void mostrar(Stage stage) {
 
         // Boas-vindas
-        Label titulo = new Label("Bem-vindo, " + usuarioLogado + "!");
+        Label titulo = new Label("Bem-vindo, " + sessao.getUsuario() + "!");
         titulo.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1b4332;");
 
         Label subtitulo = new Label("Painel Principal - Horizon Earth");
         subtitulo.setStyle("-fx-font-size: 14px; -fx-text-fill: #52796f;");
 
-        // Informações da sessão
-        String dataHora = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        Label infoSessao = new Label("Sessão iniciada em: " + dataHora);
+        // Informações da sessão (horário capturado no login)
+        Label infoSessao = new Label("Sessão iniciada em: " + sessao.getHorarioAcessoFormatado());
         infoSessao.setStyle("-fx-font-size: 12px; -fx-text-fill: #6b9080;");
 
         // Botão de sair
@@ -51,7 +48,7 @@ public class PainelPrincipal {
         botaoSair.setOnAction(e -> {
             // Volta para a tela de login
             stage.close();
-            new Main().start(new Stage());
+            new TelaLogin(new Stage()).mostrar();
         });
 
         VBox painel = new VBox(14, titulo, subtitulo, infoSessao, botaoSair);

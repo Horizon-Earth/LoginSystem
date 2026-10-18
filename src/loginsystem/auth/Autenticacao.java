@@ -1,4 +1,4 @@
-package loginsystem;
+package loginsystem.auth;
 
 /**
  * Classe responsável pela lógica de autenticação do sistema.

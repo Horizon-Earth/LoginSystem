@@ -1,0 +1,6 @@
+# Copie este arquivo para "db.properties" e preencha com os seus dados.
+# O db.properties NÃO vai para o GitHub (está no .gitignore).
+
+db.url=jdbc:mysql://localhost:3306/loginsystem?serverTimezone=America/Fortaleza&connectTimeout=5000&socketTimeout=10000
+db.user=loginsystem
+db.password=TROQUE_PELA_SUA_SENHA

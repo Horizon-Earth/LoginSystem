@@ -24,6 +24,14 @@ public class Alertas {
         alerta.showAndWait();
     }
 
+    /** Erro de conexão com o banco (MySQL desligado, senha errada no db.properties...). */
+    public static void mostrarErroBanco() {
+        mostrarErro("Erro de conexão",
+                "Não foi possível acessar o banco de dados.\n"
+                + "Verifique se o MySQL está em execução e se o arquivo "
+                + "resources/db.properties está correto.");
+    }
+
     /** Alerta informativo genérico. */
     public static void mostrarInfo(String titulo, String mensagem) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -35,9 +43,8 @@ public class Alertas {
 
     /**
      * Aviso exibido para recursos ainda não implementados.
-     * A caixa de texto é bloqueada (setEditable(false)), ou seja,
-     * o usuário não consegue digitar nada — apenas visualiza
-     * a mensagem "indisponível".
+     * A caixa de texto é bloqueada (setEditable(false)): o usuário
+     * não consegue digitar nada, apenas visualiza "indisponível".
      */
     public static void mostrarIndisponivel() {
         TextField campo = new TextField("indisponível");

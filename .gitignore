@@ -8,6 +8,9 @@ target/
 .classpath
 .project
 .settings/
+.metadata/
+.factorypath
+.apt_generated/
 
 # IntelliJ / VS Code
 .idea/
@@ -17,6 +20,14 @@ target/
 # Sistema
 .DS_Store
 Thumbs.db
+.directory
+*~
+*.swp
 
 # Logs
 *.log
+hs_err_pid*
+
+# Credenciais e configurações locais (NUNCA subir)
+resources/db.properties
+.env

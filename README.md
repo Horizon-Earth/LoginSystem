@@ -4,7 +4,7 @@
 
 **Sistema de Login da startup Horizon Earth**
 
-![Versão](https://img.shields.io/badge/vers%C3%A3o-v2.0.0-blue)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-v3.0.0-blue)
 ![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk&logoColor=white)
 ![JavaFX](https://img.shields.io/badge/JavaFX-2C5AA0)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
@@ -27,6 +27,8 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 **Objetivo seguinte (concluído na v2.0.0 ✅):** substituir as credenciais fixas por autenticação com **banco de dados MySQL**, com cadastro de usuários e senhas protegidas por hash.
 
+**Objetivo atual (concluído na v3.0.0 ✅):** permitir a autenticação com uma conta **Google** por OAuth 2.0, criando a conta local vinculada ao Google na primeira entrada.
+
 **Pendências:** login com Apple (o botão ainda exibe a mensagem de recurso indisponível).
 
 ## 🛠 Tecnologias
@@ -34,6 +36,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 - Java
 - JavaFX
 - MySQL 8+ e JDBC (MySQL Connector/J)
+- Google OAuth 2.0 com PKCE
 - Git e GitHub
 - Eclipse IDE
 
@@ -48,7 +51,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 | Versão | Descrição |
 |---|---|
-| **v3.0.0** | Login com o **Google** via OAuth 2.0, navegador externo e callback local; o banco armazena `provedor`, `google_id` e `foto_url` para contas Google sem senha. A integração exige Client ID OAuth e não oferece login de demonstração sem validação. O botão "Apple" continua indisponível por depender de configuração e credenciais Apple Developer. |
+| **v3.0.0** | Login com o **Google** via OAuth 2.0, PKCE, navegador externo e callback local. Na primeira entrada, o sistema cria uma conta vinculada ao identificador Google; nas demais, autentica a conta já vinculada. O banco passa a armazenar `provedor`, `google_id` e `foto_url`, com `senha_hash` nulo para contas Google. A configuração local exige Client ID e Client Secret de uma credencial OAuth do tipo Desktop. O botão Apple continua indisponível. |
 | **v2.0.0** | Integração com **banco de dados MySQL**. O login deixa de usar credenciais fixas (`root` / `toor`) e passa a consultar a tabela `usuarios`: só entra quem já está cadastrado. Nova tela de **cadastro** (`TelaCadastro.java`), aberta pelo link "Cadastre-se", que só conclui se o usuário e o e-mail ainda não existirem. As senhas são guardadas com hash e sal (PBKDF2-HMAC-SHA256) em `Senhas.java`, e os dados do cadastro são validados em `Validador.java`. Novo pacote `loginsystem.database`, com `ConexaoBD.java` (conexão configurada em `resources/db.properties`, que não vai para o GitHub) e `UsuarioDAO.java` (todo o SQL, com `PreparedStatement`). Novos `Usuario.java` (modelo) e `CadastroException.java`. As consultas ao banco rodam em segundo plano, sem travar a janela, e o aplicativo avisa se o MySQL estiver inacessível. Componentes visuais reaproveitados em `CampoSenha.java` e `PainelMarca.java`. Script de criação do banco em `database/schema.sql`. Os botões Google e Apple continuam indisponíveis. |
 | **v1.4.0** | Organização do código em pacotes por responsabilidade: `loginsystem.auth`, `loginsystem.model`, `loginsystem.ui` e `loginsystem.util`. A autenticação fica isolada em `Autenticacao.java`, e os dados da sessão são representados por `Sessao.java`. O `PainelPrincipal` recebe a sessão autenticada e exibe o nome do usuário e o horário de acesso formatado. O botão **Sair** fecha o painel e retorna à tela de login. Foram centralizados os alertas de erro, informação e recurso indisponível em `Alertas.java`, e o carregamento de imagens e ícones em `Recursos.java`, com tratamento para arquivos não encontrados. A classe `Main.java` permanece responsável por iniciar a aplicação JavaFX. |
 | **v1.3.0** | Nova tela de login em formato de **card central flutuante** sobre fundo acinzentado, com tema escuro em tons de roxo. À esquerda do card, a imagem da marca (`resources/images/logo.png`) com o nome **Horizon Earth**, o slogan e indicadores decorativos de carrossel; à direita, o formulário de acesso com botão **Entrar no Sistema** e botão de mostrar/ocultar senha com animação. Inclui o link "Cadastre-se" e os botões "Google" e "Apple", que ainda não estão implementados e exibem a mensagem de recurso indisponível. Janela com tamanho mínimo definido. |
@@ -70,13 +73,16 @@ LoginSystem/
 ├── lib/
 │   └── mysql-connector-j-X.X.X.jar
 ├── database/
-│   └── schema.sql
+│   ├── schema.sql
+│   └── migrar-v2-0-para-v2-1-google.sql
 ├── src/
 │   └── loginsystem/
 │       ├── Main.java
 │       ├── auth/
 │       │   ├── Autenticacao.java
-│       │   └── CadastroException.java
+│       │   ├── AutenticacaoGoogle.java
+│       │   ├── CadastroException.java
+│       │   └── DadosGoogle.java
 │       ├── database/
 │       │   ├── ConexaoBD.java
 │       │   └── UsuarioDAO.java
@@ -102,6 +108,7 @@ LoginSystem/
 │   ├── images/
 │   │   └── logo.png
 │   ├── db.properties.example
+│   ├── google.properties.example
 │   └── style.css
 ├── docs/
 │   ├── uml/
@@ -121,14 +128,14 @@ LoginSystem/
 | Pasta/arquivo | Finalidade |
 |---|---|
 | `src/loginsystem/Main.java` | Inicializa a aplicação JavaFX, abre a tela de login e testa a conexão com o banco. |
-| `src/loginsystem/auth/` | Contém a lógica de autenticação e de cadastro. |
+| `src/loginsystem/auth/` | Contém a autenticação local, o fluxo OAuth 2.0 do Google e o cadastro. |
 | `src/loginsystem/database/` | Contém o código de acesso ao MySQL (conexão e consultas). |
 | `src/loginsystem/model/` | Contém os modelos de dados: usuário cadastrado e sessão. |
 | `src/loginsystem/ui/` | Contém as telas da aplicação (login, cadastro e painel) e componentes visuais. |
 | `src/loginsystem/util/` | Reúne utilitários para alertas, recursos visuais, hash de senhas e validação. |
-| `database/` | Script SQL de criação do banco de dados (`schema.sql`). |
+| `database/` | Script de criação do banco (`schema.sql`) e migração de bancos v2.0.0 para v3.0.0. |
 | `lib/` | Bibliotecas externas, como o driver JDBC do MySQL (Connector/J). |
-| `resources/` | Recursos usados pela interface (ícones, imagens e folha de estilos) e o modelo de configuração do banco (`db.properties.example`). |
+| `resources/` | Recursos visuais, folha de estilos e modelos de configuração do banco e do Google (`*.properties.example`). |
 | `docs/` | Documentação produzida pela equipe. |
 | `support/` | Materiais externos usados como apoio no desenvolvimento. |
 
@@ -180,7 +187,8 @@ Baixe o **MySQL Connector/J** (*Platform Independent*) em [dev.mysql.com/downloa
 # src/loginsystem/Main.java > Run As > Java Application
 ```
 
-Na primeira vez, clique em **Cadastre-se**, crie sua conta e depois entre com ela.
+Na primeira vez, crie uma conta em **Cadastre-se** para entrar com usuário e senha ou use
+**Google** para criar automaticamente uma conta vinculada à sua conta Google.
 
 ### Requisitos
 
@@ -196,16 +204,23 @@ O botão **Google** na tela de login usa OAuth 2.0 real. Configure as credenciai
 
 O login não tem modo de demonstração: sem validar a identidade no Google, não é seguro aceitar um e-mail digitado pelo usuário.
 
-1. No [Google Cloud Console](https://console.cloud.google.com), configure a tela de consentimento e crie um ID do cliente OAuth 2.0 do tipo **Aplicativo para computador (Desktop)**.
+1. No [Google Cloud Console](https://console.cloud.google.com), configure a tela de
+   consentimento e crie uma credencial OAuth 2.0 do tipo **Aplicativo para computador
+   (Desktop)**. Se a tela de consentimento estiver em teste, inclua as contas permitidas em
+   **Test users**.
 2. Copie `resources/google.properties.example` para `resources/google.properties` e informe
    `google.client.id` e `google.client.secret` da mesma credencial Desktop.
 3. Ao clicar em Google, o app abre o navegador padrão. A autenticação usa OAuth 2.0 com PKCE, state anti-CSRF e um callback loopback temporário em porta local dinâmica.
-4. Após consentimento, o app consulta o endpoint oficial de perfil do Google e só aceita e-mails verificados.
+4. Após o consentimento, o app consulta o perfil da conta Google e só aceita e-mails
+   verificados. A primeira entrada cria a conta local; as próximas usam o `google_id`
+   armazenado no banco.
 
 O arquivo `resources/google.properties` é local e está no `.gitignore`; não envie o Client
 Secret para o GitHub.
 
-Contas do Google ficam armazenadas na tabela `usuarios` com `provedor = 'google'`, sem `senha_hash`. Se um e-mail já estiver cadastrado com senha, o login com Google **não mistura as contas** e avisa para entrar com usuário e senha.
+Contas do Google ficam armazenadas na tabela `usuarios` com `provedor = 'google'`, sem
+`senha_hash`. Se um e-mail já estiver cadastrado com senha, o login com Google **não mistura
+as contas** e avisa para entrar com usuário e senha.
 
 Bancos criados na v2.0.0 precisam do script `database/migrar-v2-0-para-v2-1-google.sql` (executado com privilégios de `ALTER`, ex.: `root`) antes de usar o login com Google.
 

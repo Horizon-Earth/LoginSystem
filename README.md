@@ -27,7 +27,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 **Objetivo seguinte (concluído na v2.0.0 ✅):** substituir as credenciais fixas por autenticação com **banco de dados MySQL**, com cadastro de usuários e senhas protegidas por hash.
 
-**Pendências:** login com Google e Apple (os botões ainda exibem a mensagem de recurso indisponível).
+**Pendências:** login com Apple (o botão ainda exibe a mensagem de recurso indisponível).
 
 ## 🛠 Tecnologias
 
@@ -48,6 +48,7 @@ O **LoginSystem** é o módulo de autenticação do **Horizon Earth**. Ele contr
 
 | Versão | Descrição |
 |---|---|
+| **v3.0.0** | Login com o **Google** via OAuth 2.0, navegador externo e callback local; o banco armazena `provedor`, `google_id` e `foto_url` para contas Google sem senha. A integração exige Client ID OAuth e não oferece login de demonstração sem validação. O botão "Apple" continua indisponível por depender de configuração e credenciais Apple Developer. |
 | **v2.0.0** | Integração com **banco de dados MySQL**. O login deixa de usar credenciais fixas (`root` / `toor`) e passa a consultar a tabela `usuarios`: só entra quem já está cadastrado. Nova tela de **cadastro** (`TelaCadastro.java`), aberta pelo link "Cadastre-se", que só conclui se o usuário e o e-mail ainda não existirem. As senhas são guardadas com hash e sal (PBKDF2-HMAC-SHA256) em `Senhas.java`, e os dados do cadastro são validados em `Validador.java`. Novo pacote `loginsystem.database`, com `ConexaoBD.java` (conexão configurada em `resources/db.properties`, que não vai para o GitHub) e `UsuarioDAO.java` (todo o SQL, com `PreparedStatement`). Novos `Usuario.java` (modelo) e `CadastroException.java`. As consultas ao banco rodam em segundo plano, sem travar a janela, e o aplicativo avisa se o MySQL estiver inacessível. Componentes visuais reaproveitados em `CampoSenha.java` e `PainelMarca.java`. Script de criação do banco em `database/schema.sql`. Os botões Google e Apple continuam indisponíveis. |
 | **v1.4.0** | Organização do código em pacotes por responsabilidade: `loginsystem.auth`, `loginsystem.model`, `loginsystem.ui` e `loginsystem.util`. A autenticação fica isolada em `Autenticacao.java`, e os dados da sessão são representados por `Sessao.java`. O `PainelPrincipal` recebe a sessão autenticada e exibe o nome do usuário e o horário de acesso formatado. O botão **Sair** fecha o painel e retorna à tela de login. Foram centralizados os alertas de erro, informação e recurso indisponível em `Alertas.java`, e o carregamento de imagens e ícones em `Recursos.java`, com tratamento para arquivos não encontrados. A classe `Main.java` permanece responsável por iniciar a aplicação JavaFX. |
 | **v1.3.0** | Nova tela de login em formato de **card central flutuante** sobre fundo acinzentado, com tema escuro em tons de roxo. À esquerda do card, a imagem da marca (`resources/images/logo.png`) com o nome **Horizon Earth**, o slogan e indicadores decorativos de carrossel; à direita, o formulário de acesso com botão **Entrar no Sistema** e botão de mostrar/ocultar senha com animação. Inclui o link "Cadastre-se" e os botões "Google" e "Apple", que ainda não estão implementados e exibem a mensagem de recurso indisponível. Janela com tamanho mínimo definido. |
@@ -189,12 +190,33 @@ Na primeira vez, clique em **Cadastre-se**, crie sua conta e depois entre com el
 
 > Execute a aplicação a partir da **raiz do projeto**. Os ícones, as imagens, a folha de estilos e o arquivo `db.properties` são carregados por caminhos relativos, como `resources/icons/`, `resources/images/`, `resources/style.css` e `resources/db.properties`. Se algum recurso visual não for encontrado, a aplicação possui métodos auxiliares que retornam um elemento visual vazio ou nulo, conforme o tipo de recurso. Confira se os arquivos esperados existem e se a aplicação está sendo executada a partir do diretório correto.
 
+## 🔑 Login com o Google
+
+O botão **Google** na tela de login usa OAuth 2.0 real. Configure as credenciais abaixo antes de usá-lo.
+
+O login não tem modo de demonstração: sem validar a identidade no Google, não é seguro aceitar um e-mail digitado pelo usuário.
+
+1. No [Google Cloud Console](https://console.cloud.google.com), configure a tela de consentimento e crie um ID do cliente OAuth 2.0 do tipo **Aplicativo para computador (Desktop)**.
+2. Copie `resources/google.properties.example` para `resources/google.properties` e informe
+   `google.client.id` e `google.client.secret` da mesma credencial Desktop.
+3. Ao clicar em Google, o app abre o navegador padrão. A autenticação usa OAuth 2.0 com PKCE, state anti-CSRF e um callback loopback temporário em porta local dinâmica.
+4. Após consentimento, o app consulta o endpoint oficial de perfil do Google e só aceita e-mails verificados.
+
+O arquivo `resources/google.properties` é local e está no `.gitignore`; não envie o Client
+Secret para o GitHub.
+
+Contas do Google ficam armazenadas na tabela `usuarios` com `provedor = 'google'`, sem `senha_hash`. Se um e-mail já estiver cadastrado com senha, o login com Google **não mistura as contas** e avisa para entrar com usuário e senha.
+
+Bancos criados na v2.0.0 precisam do script `database/migrar-v2-0-para-v2-1-google.sql` (executado com privilégios de `ALTER`, ex.: `root`) antes de usar o login com Google.
+
 ## 🔒 Segurança
 
 - As senhas **nunca** são guardadas em texto puro: usam hash PBKDF2-HMAC-SHA256 com sal aleatório por usuário.
 - Todas as consultas usam `PreparedStatement`, o que protege contra SQL Injection.
 - A mensagem de falha no login é genérica ("Usuário ou senha incorretos"), sem revelar se o usuário existe.
 - As credenciais do banco ficam em `resources/db.properties`, fora do controle de versão.
+- As credenciais do Google ficam em `resources/google.properties`, fora do controle de versão.
+- O login com Google não mistura contas: um e-mail já cadastrado com senha segue acessando apenas pelo login tradicional.
 
 ## 🌿 Fluxo de trabalho
 

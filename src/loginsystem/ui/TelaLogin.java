@@ -13,6 +13,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import loginsystem.auth.Autenticacao;
+import loginsystem.auth.AutenticacaoGoogle;
+import loginsystem.auth.DadosGoogle;
 import loginsystem.model.Sessao;
 import loginsystem.model.Usuario;
 import loginsystem.util.Alertas;
@@ -134,13 +136,13 @@ public class TelaLogin {
         HBox divisor = new HBox(10, divisorEsquerda, divisorTexto, divisorDireita);
         divisor.setAlignment(Pos.CENTER);
 
-        // ----- Botões Google / Apple (ainda não implementados) -----
+        // ----- Botões Google / Apple -----
         Button botaoGoogle = new Button("Google");
         botaoGoogle.setPrefHeight(44);
         botaoGoogle.getStyleClass().add("botao-social");
         HBox.setHgrow(botaoGoogle, Priority.ALWAYS);
         botaoGoogle.setMaxWidth(Double.MAX_VALUE);
-        botaoGoogle.setOnAction(e -> Alertas.mostrarIndisponivel());
+        botaoGoogle.setOnAction(e -> entrarComGoogle(botaoGoogle));
 
         Button botaoApple = new Button("Apple");
         botaoApple.setPrefHeight(44);
@@ -168,5 +170,56 @@ public class TelaLogin {
 
         Scene cena = PainelMarca.criarCena(formulario);
         PainelMarca.exibir(palco, cena);
+    }
+
+    /** Login ou cadastro com a conta do Google (em segundo plano, sem travar a janela). */
+    private void entrarComGoogle(Button botaoGoogle) {
+
+        if (!AutenticacaoGoogle.temCredenciaisConfiguradas()) {
+            Alertas.mostrarErro("Login com o Google",
+                    "Configure google.client.id e google.client.secret em "
+                    + "resources/google.properties e tente novamente.\n"
+                    + "O login de demonstração foi removido porque aceitava qualquer e-mail sem "
+                    + "validar a conta com o Google.");
+            return;
+        }
+
+        botaoGoogle.setDisable(true);
+        botaoGoogle.setText("Entrando com o Google...");
+
+        Task<Usuario> tarefa = new Task<>() {
+            @Override
+            protected Usuario call() throws Exception {
+                DadosGoogle dados = AutenticacaoGoogle.autenticar();
+                if (dados == null) {
+                    return null; // o usuário cancelou
+                }
+                return Autenticacao.entrarComGoogle(dados);
+            }
+        };
+
+        tarefa.setOnSucceeded(ev -> {
+            Usuario logado = tarefa.getValue();
+            botaoGoogle.setDisable(false);
+            botaoGoogle.setText("Google");
+            if (logado != null) {
+                Sessao sessao = new Sessao(logado.getUsuario());
+                new PainelPrincipal(sessao).mostrar(new Stage());
+                palco.close();
+            }
+        });
+
+        tarefa.setOnFailed(ev -> {
+            botaoGoogle.setDisable(false);
+            botaoGoogle.setText("Google");
+            Throwable erro = tarefa.getException();
+            String mensagem = erro != null && erro.getMessage() != null
+                    ? erro.getMessage() : "Falha inesperada.";
+            Alertas.mostrarErro("Login com o Google", mensagem);
+        });
+
+        Thread thread = new Thread(tarefa);
+        thread.setDaemon(true);
+        thread.start();
     }
 }

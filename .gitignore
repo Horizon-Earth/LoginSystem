@@ -30,4 +30,5 @@ hs_err_pid*
 
 # Credenciais e configurações locais (NUNCA subir)
 resources/db.properties
+resources/google.properties
 .env

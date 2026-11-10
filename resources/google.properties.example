@@ -1,0 +1,11 @@
+# Copie este arquivo para "google.properties" e informe o Client ID e o
+# Client Secret OAuth 2.0 criados no Google Cloud Console
+# (https://console.cloud.google.com).
+# Crie uma credencial do tipo "Aplicativo para computador (Desktop)".
+# O app usa navegador externo, PKCE e callback loopback em porta local dinâmica.
+#
+# O arquivo google.properties é local e está no .gitignore.
+# Não envie essas credenciais para o GitHub.
+
+google.client.id=SEU_CLIENT_ID.apps.googleusercontent.com
+google.client.secret=SEU_CLIENT_SECRET
